@@ -47,13 +47,10 @@ class Form extends Component {
     }
       
     handleSubmit = (e) => {
+
         if((this.state.namaa != "") && (this.state.umurr !="") && (this.state.alamatt != "") && (this.state.jk != "")){
-            $('#hasil').text(
-                " Nama : " + this.state.namaa +  " || " +
-                " Umur : " + this.state.umurr + " || " +
-                " Jenis Kelamin : " + this.state.jk + " || " +
-                " Alamat : " + this.state.alamatt + " || " +
-                " Hobi : " + this.state.hobii
+            $('#hasil').html(
+                "<p> Nama : " + this.state.namaa + "</p><br><p> Umur : " + this.state.umurr + "</p><br><p> Jenis Kelamin : " + this.state.jk + "</p><br><p> Alamat : " + this.state.alamatt + "</p><br><p> Hobi : " + this.state.hobii.join(" ") + "</p>"
             );
             $('.alert').remove();
         }
@@ -86,8 +83,7 @@ class Form extends Component {
           </div>
           `)
         }
-       
-      e.preventDefault();
+        e.preventDefault();
     }
 
     handleAlert = () => {
@@ -111,40 +107,40 @@ class Form extends Component {
             </div>
 
             <label >Jenis Kelamin : </label>
-            <div class="form-check">
+            <div className="form-check">
                 <input className="form-check-input" type="radio" checked={this.state.jk === "Laki-Laki"} onChange={this.handleFormJk} name="lk" value="Laki-Laki"/>
-                <label class="form-check-label" for="exampleRadios1">
+                <label className="form-check-label" >
                     Laki-Laki
                 </label>
             </div>
-            <div class="form-check">
+            <div className="form-check">
                 <input className="form-check-input" type="radio" checked={this.state.jk === "Perempuan"} onChange={this.handleFormJk} name="pr" value="Perempuan"/>
-                <label class="form-check-label" for="exampleRadios2">
+                <label className="form-check-label" >
                     Perempuan
                 </label>
             </div>
                 <div id="jkVal"></div>
 
             <br/>
-            <div class="form-group">
+            <div className="form-group">
                 <label >Alamat : </label>
                 <textarea className="form-control" rows="3" value={this.state.alamatt} onChange={this.handleFormAlamat} ></textarea>
                 <div id="alamatVal"></div>
             </div>
             <label >Hobi : </label>
-            <div class="form-check">
+            <div className="form-check">
                 <input className="form-check-input" type="checkbox" onChange={this.handleFormHobi} value="1"/>
                 <label className="form-check-label" >
                     Tidur
                 </label>
             </div>
-            <div class="form-check">
+            <div className="form-check">
                 <input className="form-check-input" type="checkbox" onChange={this.handleFormHobi} value="2"/>
                 <label className="form-check-label">
                     Nonton
                 </label>
             </div>
-            <div class="form-check">
+            <div className="form-check">
                 <input className="form-check-input" type="checkbox" onChange={this.handleFormHobi} value="3"/>
                 <label className="form-check-label" >
                     Makan
@@ -158,7 +154,8 @@ class Form extends Component {
         <div className="card">
         <h5 className="card-header">Hasil</h5>
         <div className="card-body">
-            <b><p className="card-text" id="hasil"></p></b>
+            <b><p className="card-text" id="hasil">
+            </p></b>
         </div>
         </div>
         <br></br>
