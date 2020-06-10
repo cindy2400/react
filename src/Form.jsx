@@ -7,7 +7,12 @@ class Form extends Component {
         umurr : "",
         jk : "",
         alamatt : "",
-        hobii :[]
+        hobii :[
+            'Tidur',
+            'Nonton',
+            'Makan'
+        ],
+        checkedHobi:[]
     }
 
     handleFormNama = (e) => {
@@ -27,21 +32,11 @@ class Form extends Component {
     }
 
     handleFormHobi = (e) => {   
-        let a; 
         if(e.target.checked){
-            if(e.target.value == 1){
-                a = "Tidur"
-            }
-            else if(e.target.value == 2){
-                a = "Nonton"
-            }
-            else if(e.target.value == 3){
-                a = "Makan"
-            }
-            this.state.hobii[e.target.value] = a;   
+            this.state.checkedHobi[e.target.value] = this.state.hobii[e.target.value]; 
         }
         else{
-            this.state.hobii[e.target.value] = "";
+            this.state.checkedHobi.splice(e.target.value,1);
         }
    
     }
@@ -50,34 +45,30 @@ class Form extends Component {
 
         if((this.state.namaa != "") && (this.state.umurr !="") && (this.state.alamatt != "") && (this.state.jk != "")){
             $('#hasil').html(
-                "<p> Nama : " + this.state.namaa + "</p><br><p> Umur : " + this.state.umurr + "</p><br><p> Jenis Kelamin : " + this.state.jk + "</p><br><p> Alamat : " + this.state.alamatt + "</p><br><p> Hobi : " + this.state.hobii.join(" ") + "</p>"
+                "<p> Nama : " + this.state.namaa + "</p><br><p> Umur : " + this.state.umurr + "</p><br><p> Jenis Kelamin : " + this.state.jk + "</p><br><p> Alamat : " + this.state.alamatt + "</p><br><p> Hobi : " + this.state.checkedHobi.join(", ") + "</p>"
             );
             $('.alert').remove();
         }
 
         if(this.state.namaa == ""){
-            // $('#hasil').hide()
             $('#nameVal').append(`<div class="alert alert-danger" id="rm1" role="alert">
             Nama Harus Diisi !!!
           </div>
           `)
         }
         if(this.state.umurr == ""){
-            // $('#hasil').hide()
             $('#umurVal').append(`<div class="alert alert-danger" id="rm2" role="alert">
             Umur Harus Diisi !!!
           </div>
           `)
         }
         if(this.state.jk == ""){
-            // $('#hasil').hide()
             $('#jkVal').append(`<div class="alert alert-danger" id="rm3" role="alert">
             Jenis Kelamin Harus Dipilih !!!
           </div>
           `)
         }
         if(this.state.alamatt == ""){
-            // $('#hasil').hide()
             $('#alamatVal').append(`<div class="alert alert-danger" id="rm4" role="alert">
             Alamat Harus Diisi !!!
           </div>
@@ -127,25 +118,10 @@ class Form extends Component {
                 <textarea className="form-control" rows="3" value={this.state.alamatt} onChange={this.handleFormAlamat} ></textarea>
                 <div id="alamatVal"></div>
             </div>
+
             <label >Hobi : </label>
-            <div className="form-check">
-                <input className="form-check-input" type="checkbox" onChange={this.handleFormHobi} value="1"/>
-                <label className="form-check-label" >
-                    Tidur
-                </label>
-            </div>
-            <div className="form-check">
-                <input className="form-check-input" type="checkbox" onChange={this.handleFormHobi} value="2"/>
-                <label className="form-check-label">
-                    Nonton
-                </label>
-            </div>
-            <div className="form-check">
-                <input className="form-check-input" type="checkbox" onChange={this.handleFormHobi} value="3"/>
-                <label className="form-check-label" >
-                    Makan
-                </label>
-            </div>
+                {this.state.hobii.map((hobi, i)=>(<div><input className="form-check-input" type="checkbox" onChange={this.handleFormHobi} value={i}/><label className="form-check-label" >{hobi}</label></div>))}     
+
         <br/>
             <input type="submit" onClick={this.handleAlert} className="btn btn-info" value="Submit"/>
         </form>
